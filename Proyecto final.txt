@@ -1,0 +1,84 @@
+La empresa TK-U recibe cotizaciones, pero las hacen manualmente por lo que suele 
+ser muy tardado para ellos hacer todas las cotizaciones, y por lo mismo es posible
+que esten perdiendo clientes, por lo que ellos quisieran automatizar ese proceso.
+
+Ellos estan tomando en cuenta la edad del asegurado, ya que depeniendo de la edad,
+se le cobra mas o menos porcentaje sobre el valor de la cotizacion. Si tiene de 18 
+a 24 años, se cobra un recargo del 10%, si tiene de 25 a 49, un recargo del 20% y si
+tiene 50 años o mas, recargo del 30% sobre el precio de la cotizacion. De igual forma, 
+se esta tomando en cuenta si tiene conyugue o no, si si, la edad de ellos tambien se 
+mira impactada en la edad siguiendo los mismos valores de la edad del asegurado, y 
+tambien se toma en cuenta si tienen hijos o no, agregando un recargo por cada hijo del 20%
+
+
+
+Algoritmo:
+
+1. el codigo se activa
+2. el usuario, en este caso el asegurado recibe preguntas, la primera es para conocer su edad
+3. Luego de la edad, se le pregunta al asegurado si tiene conyugue o no
+	3.1 Si la respuesta es no, sigue al punto 5
+	3.2 Si la respuesta es si, sigue al punto 4
+4. Se le pregunta si tiene hijos o no
+	4.1 Si la respuesta es no, sigue al punto 5
+	4.2 Si la respuesta es si, se pregunta cuantos tiene
+5. Se le pregunta el precio del seguro
+6. Dependiendo de todos los valores anteriores, el codigo dara el resultado del precio del seguro
+
+
+
+Codigo a usar:
+
+function calcularCotizacion(precioBase, edadAsegurado, edadConyuge, cantidadHijos) {
+    let recargoPorEdadAsegurado = 0;
+    if (edadAsegurado >= 18 && edadAsegurado <= 24) {
+        recargoPorEdadAsegurado = precioBase * 0.10;
+    } else if (edadAsegurado >= 25 && edadAsegurado <= 49) {
+        recargoPorEdadAsegurado = precioBase * 0.20;
+    } else if (edadAsegurado >= 50) {
+        recargoPorEdadAsegurado = precioBase * 0.30;
+    }
+
+    let recargoPorEdadConyuge = 0;
+    if (edadConyuge >= 18 && edadConyuge <= 24) {
+        recargoPorEdadConyuge = precioBase * 0.10;
+    } else if (edadConyuge >= 25 && edadConyuge <= 49) {
+        recargoPorEdadConyuge = precioBase * 0.20;
+    } else if (edadConyuge >= 50) {
+        recargoPorEdadConyuge = precioBase * 0.30;
+    }
+
+    let recargoPorHijos = 0;
+    if (edadConyuge > 0) {
+        recargoPorHijos = precioBase * 0.20 * cantidadHijos;
+    }
+
+    const precioTotal = precioBase + recargoPorEdadAsegurado + recargoPorEdadConyuge + recargoPorHijos;
+    
+    return precioTotal;
+}
+
+let edadAsegurado = parseInt(prompt("Ingrese la edad del asegurado:"));
+while (edadAsegurado < 18) {
+    alert("La edad del asegurado debe ser mayor o igual a 18 años.");
+    edadAsegurado = parseInt(prompt("Ingrese la edad del asegurado:"));
+}
+
+const tieneConyuge = prompt("¿El asegurado tiene cónyuge? (Sí/No)").toLowerCase();
+let edadConyuge = 0;
+if (tieneConyuge === 'sí' || tieneConyuge === 'si') {
+    edadConyuge = parseInt(prompt("Ingrese la edad del cónyuge:"));
+}
+
+let cantidadHijos = 0;
+if (edadConyuge > 0) {
+    const tieneHijos = prompt("¿El asegurado tiene hijos? (Sí/No)").toLowerCase();
+    if (tieneHijos === 'sí' || tieneHijos === 'si') {
+        cantidadHijos = parseInt(prompt("Ingrese la cantidad de hijos:"));
+    }
+}
+
+const precioBase = parseFloat(prompt("Ingrese el precio base del seguro:"));
+
+const cotizacionTotal = calcularCotizacion(precioBase, edadAsegurado, edadConyuge, cantidadHijos);
+console.log("El precio total de la cotización es:", cotizacionTotal);
