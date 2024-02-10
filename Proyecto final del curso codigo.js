@@ -29,7 +29,6 @@ function calcularCotizacion(precioBase, edadAsegurado, edadConyuge, cantidadHijo
 
 let edadAsegurado = parseInt(prompt("Ingrese la edad del asegurado:"));
 
-// Validar que la edad del asegurado sea mayor o igual a 18 usando un bucle while
 while (edadAsegurado < 18) {
     alert("La edad del asegurado debe ser mayor o igual a 18 años.");
     edadAsegurado = parseInt(prompt("Ingrese la edad del asegurado:"));
